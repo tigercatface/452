@@ -23,8 +23,10 @@ def importtxt(
     df =  pd.read_csv(path, delimiter = "\t0" , header = None)
     # Rename the columns 
     df.columns = column_name
+    # Convert from cm-1 to nm
+    # TODO check this it is wrong cuttof should be around 2000nm
     # Set the index 
-    df = df.set_index('nm')
+    df = df.set_index('nm') 
     
     return df
 

@@ -26,7 +26,7 @@ def transmittancetoabsorbtioncoeff(
     # Divide sample / control to obtain a better spectrum
     test_df =  sample_df/control_df
     # Convertion from nm to cm 
-    thicknesscm = thickness * 10e-7
+    thicknesscm = thickness * 1e-7
 
     # I = I_0exp(-alpha*thicknesscm) 
     # -ln(I/I_0)/thicknesscm = alpha
