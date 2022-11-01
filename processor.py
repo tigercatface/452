@@ -35,6 +35,33 @@ def transmittancetoabsorbtioncoeff(
     
     return test_df
 
+def alphacontrol(
+    control, 
+    thickness
+):
+    """
+    Args: 
+        control:    Str; Relative path to control (substrate) data
+        thickness:  Int; thickness of substrate layer in nm
+    Returns:    
+        control_df: DataFrame; df of absorption coefficient against 
+                               wavelength
+    """
+    #Import the dataframe
+    control_df = importtxt(
+        control
+    )
+    #nm to cm 
+    thicknesscm = thickness * 1e-7
+
+    # I = I_0exp(-alpha*thicknesscm) 
+    # -ln(I/I_0)/thicknesscm = alpha
+    control_df['alpha'] = -np.log(control_df['t']) / thicknesscm
+
+    #return our control_df
+    return control_df
+    
+
 
 
 
