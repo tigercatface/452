@@ -1,69 +1,38 @@
-import pandas as pd 
-import numpy as np 
-from importing import importtxt
+from pylab import *
 
-def transmittancetoabsorbtioncoeff(
-    control,
-    sample,
+def processor(
+    control_path,
+    sample_path,
     thickness
     ):
-    """
-    ARGS: 
-        control:    str; relative path of substrate layer it is built on
-        sample:     str; relative path of sample data 
-        thickness:  str; thickness of the substrate in nm 
-    RETURNS: 
-        test_df;    DataFrame; processed data!
-    """
+    con_nm, con_t = loadtxt(control_path, unpack = True)
+    sam_nm, sam_t = loadtxt(sample_path, unpack = True)
+    samnonneg_t = [] 
+    for i in range(len(sam_t)):
+        a = sam_t[i]
 
-    # Import both dataframes
-    control_df = importtxt(
-        control
-    )
-    sample_df = importtxt(
-        sample
-    )
-    # Divide sample / control to obtain a better spectrum
-    test_df =  sample_df/control_df
-    # Convertion from nm to cm 
-    thicknesscm = thickness * 1e-7
+        # Check for negative values
+        if a < 0: 
+            a = a 
+        samnonneg_t.append(a)
 
-    # I = I_0exp(-alpha*thicknesscm) 
-    # -ln(I/I_0)/thicknesscm = alpha
-    test_df['alpha'] = -np.log(test_df['t']) / thicknesscm
+        # Normalized thickness 
+    norm_t = [m/n for m,n in zip(samnonneg_t, con_t)]
 
+        # Calculate the absorption coefficient
+    alpha = -np.log(norm_t) / (
+        thickness * 1e-7)
+        
+        # Return the values 
+    return sam_nm, alpha
     
-    return test_df
+def conprocessor(
+    con_filepath,
+    con_thickess #350 microm
+    ):
 
-def alphacontrol(
-    control, 
-    thickness
-):
-    """
-    Args: 
-        control:    Str; Relative path to control (substrate) data
-        thickness:  Int; thickness of substrate layer in nm
-    Returns:    
-        control_df: DataFrame; df of absorption coefficient against 
-                               wavelength
-    """
-    #Import the dataframe
-    control_df = importtxt(
-        control
+    con_nm, con_t = loadtxt(con_filepath, unpack = True)
+    alpha = -np.log(con_t) / (
+        con_thickess * 1e-7
     )
-    #nm to cm 
-    thicknesscm = thickness * 1e-7
-
-    # I = I_0exp(-alpha*thicknesscm) 
-    # -ln(I/I_0)/thicknesscm = alpha
-    control_df['alpha'] = -np.log(control_df['t']) / thicknesscm
-
-    #return our control_df
-    return control_df
-    
-
-
-
-
-
-
+    return con_nm, alpha
