@@ -7,7 +7,11 @@ def processor(
     sample_path_list, 
     sample_name_list,
     thickness_list, 
-    control_thickness
+    control_thickness,
+    control_name,
+    title,
+    upperlimit,
+    lowerlimit
     ):
     # Create list that we can append all the values to if we want 
     processed_list = []
@@ -35,9 +39,15 @@ def processor(
         processed_list.append(alpha)
         # Plot the values 
         plt.plot(sam_nm, alpha, label = sample_name)
+    con_t = [abs(number) for number in con_t]
+    alpha_c = -np.log(con_nm) / (
+        control_thickness * 1e-7
+    )
+    plt.plot(con_nm, alpha_c, label = control_name)
     plt.yscale('log')
     plt.legend()
-    plt.xlim(1000,9000)
+    plt.title(title)
+    plt.xlim(lowerlimit,upperlimit)
     plt.show()
 
     return processed_list
