@@ -1,4 +1,4 @@
-from processor2electricboogietowntime import processor
+from functions.processor import processor
 from plotter import plottter
 
 s_path_list = [
@@ -41,6 +41,6 @@ plottter(
     s_path_list,
     s_name_list,    
     thickness_list,
-    control_thickness,
     control_name,
+    '071122 Raw data'
     )
