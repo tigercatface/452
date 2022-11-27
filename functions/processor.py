@@ -111,8 +111,5 @@ def alphaplot(
     else:
         plt.xlim(lowerlimit, upperlimit)
     
-
-    plt.show()
-    
     return df
 

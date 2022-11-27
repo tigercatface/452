@@ -42,7 +42,23 @@ def linearfit(
         model = sm.OLS(y, sm.add_constant(x))
         results = model.fit()
         sampleregression_dict[sample] = results.summary()
-    
+        plt.figure(4)
+        plt.plot(x,y, label = sample)
+        fit_m = results.params[1]
+        fit_b = results.params[0]
+        # TODO, find a way to make is go from x = 0, 
+        # np.arrange for fit y using lower and upper limits
+        # using equation for y = mx + b
+        lowy = 0
+        highy = upplim * fit_m + fit_b
+        fit_y = np.arange(lowy, highy, 0.01)
+        fit_x = (fit_y - fit_b)/ fit_m
+
+        plt.plot(fit_x,fit_y, label = sample + " FIT")
+        plt.legend()
+        plt.title('Absorption Coefficient Squared Linear Fit')
+        plt.xlabel('Energy (eV)')
+        plt.ylabel('Absorption Coefficient Squared')
     return sampleregression_dict, sample_df_dict
 
 

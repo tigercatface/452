@@ -1,6 +1,7 @@
 from functions.processor import alphaplot
 from functions.bandgapcalculator import Egplotter
 from functions.linearfit import linearfit
+from matplotlib import pyplot as plt
 # Control /  block comment
 # s_path_list = [
 #     'data\InGaAsSb091122_2\InGaAsSb_XAB1308_091122_64.0.txt',
@@ -28,6 +29,13 @@ s_path_list = [
 # ]
 
 s_name_list = [
+    'XAB1308',
+    'XK1786',
+    'XK1787',
+    'XAB1309',
+    'XAB1315'
+]
+s_name_list_2 = [
     'XAB1308',
     'XK1786',
     'XK1787',
@@ -67,16 +75,21 @@ df = alphaplot(
     True,
     1)
     
-# Egplotter(df,
-#         control_name,
-#         s_name_list,
-#         1,    
-#         'EGG',
-#         'Energy (eV)'
-#         )
+Egplotter(df,
+        control_name,
+        s_name_list,
+        1,    
+        'EGG',
+        'Energy (eV)',
+        'eV'
+        )
+
+# TODO need to use different list, no idea why. 
+
 sampleregression, sampledfs = linearfit(
     df,
-    s_name_list,
+    s_name_list_2,
     sample_limits
 )
-print(sampleregression)
+plt.show()
+

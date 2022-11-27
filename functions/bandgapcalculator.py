@@ -40,6 +40,7 @@ def Egplotter(
     plt.xlabel(xlabel)
     plt.ylabel('alpha^2')
     plt.legend()
-    plt.show()
+    # Return list to its orignal State
+    sample_name = sample_name[:-1]
     return df
 
