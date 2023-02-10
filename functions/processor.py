@@ -82,11 +82,14 @@ def alphaplot(
     plt.figure(0)
     if units !=0:
         plt.plot(con_ev, con_t, label = control_name)
+        plt.xlabel('Photon Energy (eV)')
     else:
         plt.plot(con_nm, con_t, label = control_name)
+        plt.xlabel('Wavelength (micrometers)')
     plt.yscale('log')
     plt.legend()
     plt.title('Normalyzed Transmission Data')
+    plt.ylabel('Tramsmission (Ratio)')
     if units != 0:
         loweelimit = h*c/(lowerlimit * 1e-6)
         highelimit = h*c/(upperlimit * 1e-6)
@@ -98,9 +101,11 @@ def alphaplot(
 
     plt.figure(1)
     if units != 0:
-        plt.plot(con_nm, alpha_c, label = control_name)
+        plt.plot(con_ev, alpha_c, label = control_name)
+        plt.xlabel('Photon Energy (eV)')
     else:
         plt.plot(con_nm, alpha_c, label = control_name)
+        plt.xlabel('Wavelength (micrometers)')
     plt.yscale('log')
     plt.legend()
     plt.title(title)

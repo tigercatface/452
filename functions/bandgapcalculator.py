@@ -21,12 +21,11 @@ def Egplotter(
     # Cull the values we are not interested in
     # df = dataframe[dataframe.index > lowerlimit]
     # df = df[df.index < upperlimit]
-    print(df)
     # Energy values to list
     energy = df.index.tolist()
     # Square all the values in the dataframe 
     df = np.square(df)
-    print(df)
+
 
     # Create a list of all names and then loop over elements in list 
     sample_name.append(control_name)
